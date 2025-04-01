@@ -6,7 +6,7 @@
 #include <functional>
 #include <map>
 #include <filesystem>
-#include <msquic.h>
+#include <msquic.hpp>
 
 class MsQuicClient;
 
