@@ -57,9 +57,14 @@ int main(int argc, char* argv[]) {
         return runChildProcess(id);
     }
     
-    // 主进程代码
-    LogEvent("Info", "MsQuic Multi-process Manager started");
-    
+    std::cout << R"(
+  __  __   ____   _____  ___   ___  ___    ___ 
+ |  \/  | /____| / / \ \ | |   | | |_ _| / ___|
+ | |\/| | \__ \  | | | | | |   | |  | |  | |   
+ | |  | | ___) | | |_| | | |   | |  | |  | |__ 
+ |_|  |_||____/   \___\_\ \_\__/_/ |___| \____| 
+                                                
+    )" << std::endl;
     // 加载配置
     loadConfig();
     
@@ -240,9 +245,9 @@ bool createChildProcess(int id) {
     sharedMemories[id]->startListening([id](const std::string& message) {
         // 只记录重要消息，如错误或状态变更
         if (message.find("ERROR") == 0 || message.find("STARTED") == 0 || message.find("STOPPED") == 0) {
-            LogEvent("Info", "Received message from child process " + std::to_string(id) + ": " + message);
+            LogEvent("Info", "Child process " + std::to_string(id) + ": " + message);
         }
-    });
+        });
     
     return true;
 }
